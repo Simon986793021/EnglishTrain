@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">English Train</string>
+    <string name="footbar_text_home">首页</string>
+    <string name="footbar_text_train">培训</string>
+    <string name="footbar_text_my">我的</string>
+</resources>

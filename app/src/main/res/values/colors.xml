@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#0fd6f9</color>
+    <color name="colorPrimaryDark">#0fd6f9</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="main_footer_bg">#faf7f7</color>
+    <color name="footer_text_color_selected">#0fd6f9</color>
+    <color name="footer_text_color_normal">#515151</color>
+    <color name="common_text_color">#515151</color>
+</resources>
