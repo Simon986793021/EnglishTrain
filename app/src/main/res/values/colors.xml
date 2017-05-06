@@ -7,4 +7,12 @@
     <color name="footer_text_color_selected">#0fd6f9</color>
     <color name="footer_text_color_normal">#515151</color>
     <color name="common_text_color">#515151</color>
+    <color name="login_bg">#eee</color>
+    <color name="register_bg">#eee</color>
+    <color name="login_input_bg">#fff</color>
+    <color name="view_line">#ddd</color>
+    <color name="black">#000</color>
+    <color name="white">#fff</color>
+    <color name="base_color_text_gray">#ddd</color>
+    <color name="text_color_hint">#ffdddddd</color>
 </resources>

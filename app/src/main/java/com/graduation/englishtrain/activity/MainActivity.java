@@ -45,7 +45,13 @@ public class MainActivity extends AppCompatActivity {
                         curCursor = 1;
                         break;
                     case R.id.foot_bar_my:
-                        curCursor = 2;
+                        if (false){
+                            curCursor = 2;
+                        }
+                        else {
+                            Intent intent=new Intent(MainActivity.this,LoginActivity.class);
+                            startActivity(intent);
+                        }
                         break;
                 }
                 addFragmentToStack(curCursor);

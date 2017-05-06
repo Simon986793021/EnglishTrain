@@ -6,6 +6,38 @@
     <com.panxw.android.imageindicator.ImageIndicatorView
         android:id="@+id/indicate_view"
         android:layout_width="match_parent"
-        android:layout_height="180dp">
+        android:layout_height="150dp">
     </com.panxw.android.imageindicator.ImageIndicatorView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#fff"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#efefef"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/course_like"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="12dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="猜你喜欢"
+            android:paddingLeft="5dp"
+            android:layout_gravity="center_vertical"
+            android:textSize="14sp"
+            android:gravity="center_vertical"
+            android:textColor="#11cd6e"/>
+    </LinearLayout>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lv_fragment_course"
+        android:background="#fff"
+        android:listSelector="#00000000"></ListView>
 </LinearLayout>

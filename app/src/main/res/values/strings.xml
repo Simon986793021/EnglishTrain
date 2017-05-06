@@ -3,4 +3,6 @@
     <string name="footbar_text_home">首页</string>
     <string name="footbar_text_train">培训</string>
     <string name="footbar_text_my">我的</string>
+    <string name="register_txt1">还没有账号？</string>
+    <string name="register_txt2">立即注册></string>
 </resources>
