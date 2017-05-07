@@ -4,6 +4,7 @@ package com.graduation.englishtrain;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +14,13 @@ import android.widget.Toast;
 import com.panxw.android.imageindicator.AutoPlayManager;
 import com.panxw.android.imageindicator.ImageIndicatorView;
 
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * Author:jiangbo
@@ -22,7 +28,7 @@ import java.util.regex.Pattern;
  * Description: This is Utils
  */
 public class Utils {
-
+    private static  boolean isLogin=false;
     //广告栏图片加载
     public static void loadImage(ImageIndicatorView imageIndicatorView) {
         // 声明一个数组, 指定图片的ID
@@ -95,5 +101,45 @@ public class Utils {
         Pattern pattern=Pattern.compile(regex);
         Matcher matcher=pattern.matcher(cellphone);
         return matcher.matches();
+    }
+    /*
+    *判断是否登录
+    *
+    */
+    public static boolean isLogin()
+    {
+        final OkHttpClient client=new OkHttpClient();
+        String url="http://123.207.19.116/jiangbo/isLogin.do";
+        Log.i(">>>>>>>",url);
+        final Request request=new Request.Builder()
+                .get()
+                .url(url)
+                .build();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Response response;
+                try {
+                    response=client.newCall(request).execute();
+                    if (response.isSuccessful())
+                    {
+                        String content=response.body().string();
+                        Log.i(">>>>>>>",content+"");
+                        if (content.contains("1"))
+                        {
+
+                         isLogin =true;
+
+                        }
+                        else {
+                            isLogin =false;
+                        }
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+        return isLogin;
     }
 }

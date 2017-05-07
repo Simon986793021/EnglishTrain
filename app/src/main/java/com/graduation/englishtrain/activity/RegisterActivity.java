@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -99,7 +98,6 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
                 .get()
                 .url(url)
                 .build();
-        Log.i(">>>>>>",url);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -109,7 +107,6 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
                     if (response.isSuccessful())
                     {
                         final String content=response.body().string();
-                        Log.i(">>>>>",content);
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
