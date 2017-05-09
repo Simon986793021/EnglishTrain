@@ -33,7 +33,6 @@
                 android:drawableLeft="@drawable/login_user"
                 android:drawablePadding="15dip"
                 android:hint="请输入用户名"
-                android:inputType="phone"
                 android:maxLength="11"
                 android:maxLines="1"
                 android:paddingLeft="15dip"

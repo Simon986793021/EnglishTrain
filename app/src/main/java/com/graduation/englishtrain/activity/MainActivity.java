@@ -51,10 +51,8 @@ public class MainActivity extends AppCompatActivity {
                         curCursor = 1;
                         break;
                     case R.id.foot_bar_my:
-                        Log.i(">>>>>>>",Utils.isLogin()+"");
-                        if (LoginActivity.isLogin){
+                        if (Utils.isLogin(MainActivity.this)){
                             curCursor = 2;
-
                         }
 
                         else {

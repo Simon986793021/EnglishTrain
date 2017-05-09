@@ -51,6 +51,7 @@ public class TrainFragment extends BaseFragment implements View.OnClickListener{
     private List<TeacherAndCourse.Course> courselist;
     private String teacherid;
     private String courseid;
+    private String period;
     @Override
     protected View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.frament_train,container,false);
@@ -140,7 +141,7 @@ public class TrainFragment extends BaseFragment implements View.OnClickListener{
         teachersp= (Spinner) view.findViewById(R.id.sn_teacher);
         coursesp= (Spinner) view.findViewById(R.id.sn_course);
         timesp= (Spinner) view.findViewById(R.id.sn_time);
-        String [] time=new String[]{"","一周以内","一个月以内"};
+        final String [] time=new String[]{"","一周以内","一个月以内"};
         timesp.setAdapter(new ArrayAdapter<>(getActivity(),android.R.layout.simple_spinner_dropdown_item,time));
         String url="http://123.207.19.116/jiangbo/courseAndTeacher.do";
         final Gson gson=new Gson();
@@ -192,6 +193,28 @@ public class TrainFragment extends BaseFragment implements View.OnClickListener{
         dialog.getWindow().setGravity(Gravity.CENTER);
         Button sure= (Button) view.findViewById(R.id.bt_sure);
         Button cancel= (Button) view.findViewById(R.id.bt_cancel);
+        timesp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position==0)
+                {
+                    period="0";
+                }
+                else if (position==1){
+                    period="week";
+
+                }
+                else if (position==2)
+                {
+                    period="month";
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         teachersp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -238,8 +261,54 @@ public class TrainFragment extends BaseFragment implements View.OnClickListener{
 
             @Override
             public void onClick(View v) {
-                Log.i(">>>>>>>>>>>>>>",courseid+teacherid);
-                Utils.showToast(courseid+teacherid,getActivity());
+                dialog.cancel();
+                String url="http://123.207.19.116/jiangbo/userSearchLesson.do?"+"period="+period+"&courseId="+courseid+"&teacherId="+teacherid;
+                final Gson gson =new Gson();
+                final Request request=new Request.Builder()
+                        .get()
+                        .url(url)
+                        .build();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Response response;
+                        try {
+                            response=client.newCall(request).execute();
+                            if (response.isSuccessful())
+                            {
+                                final String content=response.body().string();
+                                final LessonList lessonlist=gson.fromJson(content,LessonList.class);
+                                final List<LessonList.Lesson> lesson=lessonlist.rows;
+                                getActivity().runOnUiThread(new Runnable() {
+                                    public List<Map<String,Object>> getData() {
+                                        List<Map<String, Object>> list=new ArrayList<>();
+
+                                        for (int i=0;i<lesson.size();i++)
+
+                                        {
+                                            Map<String,Object> map=new HashMap<>();
+                                            map.put("coursename",lesson.get(i).courseName);
+                                            map.put("tachername",lesson.get(i).teacherName);
+                                            map.put("starttime", Utils.stampToDate(lesson.get(i).lessonStartTime));
+                                            list.add(map);
+                                        }
+                                        return list;
+                                    }
+
+                                    @Override
+                                    public void run() {
+                                       // listview.invalidate();
+                                        listview.setAdapter(new SimpleAdapter(getActivity(),getData(),R.layout.item_fragment_lesson,new String []{"coursename","tachername","starttime"},new int[]{R.id.tv_coursename,R.id.tv_teachername,R.id.tv_starttime}));
+                                    }
+                                });
+
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+
             }
         });
         cancel.setOnClickListener(new View.OnClickListener() {

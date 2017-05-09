@@ -15,4 +15,5 @@
     <color name="white">#fff</color>
     <color name="base_color_text_gray">#ddd</color>
     <color name="text_color_hint">#ffdddddd</color>
+    <color name="userinfo_bg">#eee</color>
 </resources>

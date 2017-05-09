@@ -2,8 +2,10 @@ package com.graduation.englishtrain;
 
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.text.style.BulletSpan;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -108,12 +110,15 @@ public class Utils {
     *判断是否登录
     *
     */
-    public static boolean isLogin()
+    public static boolean isLogin(Context context)
     {
         final OkHttpClient client=new OkHttpClient();
         String url="http://123.207.19.116/jiangbo/isLogin.do";
-        Log.i(">>>>>>>",url);
+        SharedPreferences sp=context.getSharedPreferences("cookie",Context.MODE_PRIVATE);
+        String username=sp.getString("username",null);
+        String password=sp.getString("password", null);
         final Request request=new Request.Builder()
+                .header("Cookie", "userName="+username+"; password="+password)
                 .get()
                 .url(url)
                 .build();
