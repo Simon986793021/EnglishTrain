@@ -3,9 +3,33 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <com.panxw.android.imageindicator.ImageIndicatorView
-        android:id="@+id/indicate_view"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="180dp">
-    </com.panxw.android.imageindicator.ImageIndicatorView>
+        android:layout_height="50sp"
+        android:orientation="horizontal"
+        android:background="#e10a47">
+
+        <TextView
+            android:paddingLeft="10dp"
+            android:layout_width="0dp"
+            android:layout_height="40sp"
+            android:layout_margin="5dp"
+            android:layout_weight="8"
+            android:textColor="#605a5a"
+            android:inputType=""
+            android:id="@+id/tv_select"
+            android:gravity="center_vertical"
+            android:background="@drawable/fragemnt_et_radius"
+            android:imeOptions="flagNoExtractUi"
+            android:maxLines="1"
+            android:textSize="18sp"
+            android:text="点击选择" >
+        </TextView>
+    </LinearLayout>
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lv_lesson_list">
+    </ListView>
+
 </LinearLayout>

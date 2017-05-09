@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.foot_bar_my:
                         Log.i(">>>>>>>",Utils.isLogin()+"");
-                        if (LoginActivity.isLogin&& Utils.isLogin()){
+                        if (LoginActivity.isLogin){
                             curCursor = 2;
 
                         }

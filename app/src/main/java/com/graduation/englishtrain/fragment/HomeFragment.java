@@ -2,8 +2,6 @@ package com.graduation.englishtrain.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,11 +13,9 @@ import com.google.gson.Gson;
 import com.graduation.englishtrain.R;
 import com.graduation.englishtrain.Utils;
 import com.graduation.englishtrain.activity.CourseDetailActivity;
-import com.graduation.englishtrain.activity.MainActivity;
 import com.graduation.englishtrain.adapter.CourseListAdapter;
 import com.graduation.englishtrain.base.BaseFragment;
 import com.graduation.englishtrain.model.CourseList;
-import com.panxw.android.imageindicator.AutoPlayManager;
 import com.panxw.android.imageindicator.ImageIndicatorView;
 
 import java.io.IOException;
@@ -80,12 +76,8 @@ public class HomeFragment extends BaseFragment {
                     if (response.isSuccessful())
                     {
                         final String content=response.body().string();
-                        Log.i(">>>",content);
-                        Log.i(">>>>","获取成功");
                         CourseList courseList=gson.fromJson(content,CourseList.class);
                         final List<CourseList.Course> course=courseList.rows;
-                        Log.i(">>>",course.toString());
-                        Log.i("Simon",course.get(1).courseName);
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
