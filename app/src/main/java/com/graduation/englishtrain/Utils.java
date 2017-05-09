@@ -131,7 +131,6 @@ public class Utils {
                     if (response.isSuccessful())
                     {
                         String content=response.body().string();
-                        Log.i(">>>>>>>",content+"");
                         if (content.contains("1"))
                         {
 

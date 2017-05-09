@@ -4,5 +4,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <include layout="@layout/activity_toolbar"/>
-
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="270dp"
+        android:id="@+id/iv_course_detail"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/tv_course_content"
+        android:textSize="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/bt_order"
+        android:text="预约报名"
+        android:textSize="18sp"
+        android:textColor="#fff"
+        android:layout_gravity="bottom"
+        android:background="@color/colorPrimary"/>
 </LinearLayout>

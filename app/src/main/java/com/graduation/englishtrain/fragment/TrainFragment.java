@@ -1,6 +1,7 @@
 package com.graduation.englishtrain.fragment;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.graduation.englishtrain.R;
 import com.graduation.englishtrain.Utils;
+import com.graduation.englishtrain.activity.CourseDetailActivity;
 import com.graduation.englishtrain.base.BaseFragment;
 import com.graduation.englishtrain.model.CourseList;
 import com.graduation.englishtrain.model.LessonList;
@@ -52,6 +54,7 @@ public class TrainFragment extends BaseFragment implements View.OnClickListener{
     private String teacherid;
     private String courseid;
     private String period;
+    private List<LessonList.Lesson> lesson;
     @Override
     protected View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.frament_train,container,false);
@@ -61,11 +64,25 @@ public class TrainFragment extends BaseFragment implements View.OnClickListener{
 
         if(Utils.isNetworkAvailable(getActivity())) {
             loadData();
+            onClick();
+
         }
         else {
             Utils.showToast("请检查网络",getActivity());
         }
+
         return view;
+    }
+
+    private void onClick() {
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent=new Intent(getActivity(), CourseDetailActivity.class);
+                intent.putExtra("courseId",lesson.get(position).courseId);
+                startActivity(intent);
+            }
+        });
     }
 
     private void loadData() {
@@ -84,7 +101,7 @@ public class TrainFragment extends BaseFragment implements View.OnClickListener{
                     {
                         final String content=response.body().string();
                         final LessonList lessonlist=gson.fromJson(content,LessonList.class);
-                        final List<LessonList.Lesson> lesson=lessonlist.rows;
+                        lesson= lessonlist.rows;
                         getActivity().runOnUiThread(new Runnable() {
                             public List<Map<String,Object>> getData() {
                                 List<Map<String, Object>> list=new ArrayList<>();
@@ -278,7 +295,7 @@ public class TrainFragment extends BaseFragment implements View.OnClickListener{
                             {
                                 final String content=response.body().string();
                                 final LessonList lessonlist=gson.fromJson(content,LessonList.class);
-                                final List<LessonList.Lesson> lesson=lessonlist.rows;
+                                lesson=lessonlist.rows;
                                 getActivity().runOnUiThread(new Runnable() {
                                     public List<Map<String,Object>> getData() {
                                         List<Map<String, Object>> list=new ArrayList<>();

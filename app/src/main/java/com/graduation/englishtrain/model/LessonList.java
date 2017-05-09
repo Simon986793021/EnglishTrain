@@ -7,12 +7,13 @@ import java.util.List;
  */
 
 public class LessonList {
-    public List<Lesson> rows;
-    public class Lesson
+    public  List<Lesson> rows;
+    public  class Lesson
     {
         public String courseName;
         public String teacherName;
         public String lessonStartTime;
         public String id;
+        public  String  courseId;
     }
 }

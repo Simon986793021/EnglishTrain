@@ -1,6 +1,8 @@
 package com.graduation.englishtrain.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -51,9 +53,16 @@ public class MainActivity extends AppCompatActivity {
                         curCursor = 1;
                         break;
                     case R.id.foot_bar_my:
-                        if (Utils.isLogin(MainActivity.this)){
+                        SharedPreferences sp=getSharedPreferences("cookie", Context.MODE_PRIVATE);
+                        String username=sp.getString("username",null);
+                        String password=sp.getString("password", null);
+                        if (username!=null&&password!=null)
+                        {
                             curCursor = 2;
                         }
+                      //  if (Utils.isLogin(MainActivity.this)){
+
+                        //}
 
                         else {
                             Intent intent=new Intent(MainActivity.this,LoginActivity.class);
