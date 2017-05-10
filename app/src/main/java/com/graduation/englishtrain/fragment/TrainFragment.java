@@ -3,7 +3,6 @@ package com.graduation.englishtrain.fragment;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,9 +18,8 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.graduation.englishtrain.R;
 import com.graduation.englishtrain.Utils;
-import com.graduation.englishtrain.activity.CourseDetailActivity;
+import com.graduation.englishtrain.activity.LessonDetailActivity;
 import com.graduation.englishtrain.base.BaseFragment;
-import com.graduation.englishtrain.model.CourseList;
 import com.graduation.englishtrain.model.LessonList;
 import com.graduation.englishtrain.model.TeacherAndCourse;
 
@@ -78,8 +76,9 @@ public class TrainFragment extends BaseFragment implements View.OnClickListener{
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent=new Intent(getActivity(), CourseDetailActivity.class);
+                Intent intent=new Intent(getActivity(), LessonDetailActivity.class);
                 intent.putExtra("courseId",lesson.get(position).courseId);
+                intent.putExtra("lessonId",lesson.get(position).id);
                 startActivity(intent);
             }
         });

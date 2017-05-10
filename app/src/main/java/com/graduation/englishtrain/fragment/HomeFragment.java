@@ -17,7 +17,7 @@ import com.google.gson.Gson;
 import com.graduation.englishtrain.R;
 import com.graduation.englishtrain.Utils;
 import com.graduation.englishtrain.activity.CourseDetailActivity;
-import com.graduation.englishtrain.activity.LoginActivity;
+import com.graduation.englishtrain.activity.LessonDetailActivity;
 import com.graduation.englishtrain.adapter.CourseListAdapter;
 import com.graduation.englishtrain.base.BaseFragment;
 import com.graduation.englishtrain.model.CourseList;
@@ -120,8 +120,7 @@ public class HomeFragment extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String courseId=CourseListAdapter.list.get(position).id;
-                Log.i("Simon",courseId);
-                Intent intent=new Intent(getActivity(),CourseDetailActivity.class);
+                Intent intent=new Intent(getActivity(), CourseDetailActivity.class);
                 intent.putExtra("courseId",courseId);
                 startActivity(intent);
             }

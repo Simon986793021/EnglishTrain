@@ -22,11 +22,15 @@
         </activity>
         <activity android:name=".activity.MyinfoActivity"
                   android:screenOrientation="portrait"/>
-        <activity android:name=".activity.CourseDetailActivity"
+        <activity android:name=".activity.LessonDetailActivity"
                   android:screenOrientation="portrait"/>
         <activity android:name=".activity.LoginActivity"
                   android:screenOrientation="portrait"/>
         <activity android:name=".activity.RegisterActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.MyLessonActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.CourseDetailActivity"
                   android:screenOrientation="portrait"/>
     </application>
 

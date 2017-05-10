@@ -28,31 +28,35 @@ import okhttp3.Response;
  * Created by jiangbo on 2017/5/5.
  */
 
-public class CourseDetailActivity extends Activity implements View.OnClickListener{
+public class LessonDetailActivity extends Activity implements View.OnClickListener{
     private TextView back;
     private TextView toolbarcenter;
     private OkHttpClient client=new OkHttpClient();
     private TextView contenttextview;
     private ImageView imageview;
     private String courseId;
+    private Button button;
     private Intent intent;
+    private String lessonId;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_course_detail);
+        setContentView(R.layout.activity_lesson_detail);
         intent=getIntent();
         back= (TextView) findViewById(R.id.tv_back);
         toolbarcenter= (TextView) findViewById(R.id.tv_activity_toolbar_center);
         toolbarcenter.setText("课程详情");
         contenttextview= (TextView) findViewById(R.id.tv_course_content);
         imageview= (ImageView) findViewById(R.id.iv_course_detail);
+        button= (Button) findViewById(R.id.bt_order);
         back.setOnClickListener(this);
-        if (Utils.isNetworkAvailable(CourseDetailActivity.this))
+        if (Utils.isNetworkAvailable(LessonDetailActivity.this))
         {
             loadData();
+            button.setOnClickListener(this);
         }
         else {
-            Utils.showToast("请检查网络",CourseDetailActivity.this);
+            Utils.showToast("请检查网络",LessonDetailActivity.this);
         }
 
     }
@@ -93,7 +97,7 @@ public class CourseDetailActivity extends Activity implements View.OnClickListen
                                 public void run() {
                                     contenttextview.setText(course.content);
                                     String url="http://123.207.19.116/jiangbo/getImg.do?"+course.img2;
-                                    Glide.with(CourseDetailActivity.this).load(url)
+                                    Glide.with(LessonDetailActivity.this).load(url)
                                             .error(R.drawable.coursedetail)
                                             .into(imageview);//Glide 加载图片
                                 }
@@ -115,8 +119,65 @@ public class CourseDetailActivity extends Activity implements View.OnClickListen
             case R.id.tv_back:
                 finish();
                 break;
+            case R.id.bt_order:
+                startOrder();
             default:
                 break;
         }
+    }
+
+    private void startOrder() {
+        String lessonId=intent.getStringExtra("lessonId");
+        String orderurl="http://123.207.19.116/jiangbo/orderLesson.do?lessonId="+lessonId;
+        SharedPreferences sp=getSharedPreferences("cookie", Context.MODE_PRIVATE);
+        String username=sp.getString("username",null);
+        String password=sp.getString("password", null);
+        if (lessonId!=null)
+        {
+            if (username!=null&&password!=null)
+            {
+                startRequest(orderurl,username,password);
+            }
+            else
+            {
+                Intent intent=new Intent(LessonDetailActivity.this,LoginActivity.class);
+                startActivity(intent);
+            }
+        }
+        else {
+            Utils.showToast("系统维护",LessonDetailActivity.this);
+        }
+
+    }
+
+    private void startRequest(String orderurl,String username,String password) {
+        final Request request=new Request.Builder()
+                .header("Cookie", "userName="+username+"; password="+password)
+                .get()
+                .url(orderurl)
+                .build();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Response reponse;
+                try {
+                    reponse=client.newCall(request).execute();
+                    if (reponse.isSuccessful())
+                    {
+                        String content=reponse.body().string();
+                        Log.i(">>>>>>>",content);
+                        if (content.contains("1"));
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Utils.showToast("预约成功",LessonDetailActivity.this);
+                            }
+                        });
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 }

@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * Created by Simon on 2017/5/9.
+ * Created by jiangbo on 2017/5/9.
  */
 
 public class User {

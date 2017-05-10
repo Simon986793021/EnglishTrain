@@ -55,15 +55,13 @@ public class CourseListAdapter extends BaseAdapter {
             viewHolder.imageView= (ImageView) view.findViewById(R.id.iv_title);
             view.setTag(viewHolder);
         }
-        else {
             viewHolder= (ViewHolder) view.getTag();
-            viewHolder.title.setText(list.get(i).courseName);
-            viewHolder.content.setText(list.get(i).content);
             String url="http://123.207.19.116/jiangbo/getImg.do?img="+list.get(i).img1;
             Glide.with(context).load(url)
                     .error(R.drawable.error)
                     .into(viewHolder.imageView);//Glide 加载图片
-        }
+            viewHolder.title.setText(list.get(i).courseName);
+            viewHolder.content.setText(list.get(i).content);
         return view;
     }
     private class ViewHolder
@@ -71,6 +69,5 @@ public class CourseListAdapter extends BaseAdapter {
         private TextView title;
         private TextView content;
         private ImageView imageView;
-
     }
 }

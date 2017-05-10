@@ -16,4 +16,13 @@
         android:textSize="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/bt_order"
+        android:text="预约报名"
+        android:textSize="18sp"
+        android:textColor="#fff"
+        android:layout_gravity="bottom"
+        android:background="@color/colorPrimary"/>
 </LinearLayout>

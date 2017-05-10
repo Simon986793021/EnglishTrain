@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.graduation.englishtrain.R;
 import com.graduation.englishtrain.Utils;
 import com.graduation.englishtrain.activity.LoginActivity;
+import com.graduation.englishtrain.activity.MyLessonActivity;
 import com.graduation.englishtrain.activity.MyinfoActivity;
 import com.graduation.englishtrain.base.BaseFragment;
 
@@ -47,7 +48,6 @@ public class MyFragment extends BaseFragment implements AdapterView.OnItemClickL
     protected View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my, container, false);
         listView = (ListView) view.findViewById(R.id.lv_fragment_my);
-
         SimpleAdapter adapter = new SimpleAdapter(getActivity(), getData(), R.layout.listview_fragment_my, new String[]{"leftImage", "centerText", "rightImage"}, new int[]{R.id.im_listview_left, R.id.tv_listview_center, R.id.im_listview_right});
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(this);
@@ -63,10 +63,18 @@ public class MyFragment extends BaseFragment implements AdapterView.OnItemClickL
         list.add(map);
 
         map = new HashMap<>();
+        map.put("leftImage", R.drawable.ordercourse);
+        map.put("centerText", "我的预约");
+        map.put("rightImage", R.drawable.gogogo);
+        list.add(map);
+
+        map = new HashMap<>();
         map.put("leftImage", R.drawable.loginout);
         map.put("centerText", "退出登录");
         map.put("rightImage", R.drawable.gogogo);
         list.add(map);
+
+
 
         return list;
     }
@@ -75,10 +83,26 @@ public class MyFragment extends BaseFragment implements AdapterView.OnItemClickL
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         switch (position) {
             case 0:
-                Intent infointent = new Intent(mactivity, MyinfoActivity.class);
-                startActivity(infointent);
+                if (Utils.isNetworkAvailable(mactivity))
+                {
+                    Intent infointent = new Intent(mactivity, MyinfoActivity.class);
+                    startActivity(infointent);
+                }
+                else {
+                    Utils.showToast("请检查网络",mactivity);
+                }
                 break;
             case 1:
+                if (Utils.isNetworkAvailable(mactivity))
+                {
+                    Intent intent=new Intent(mactivity,MyLessonActivity.class);
+                    startActivity(intent);
+                }
+                else {
+                    Utils.showToast("请检查网络",mactivity);
+                }
+                break;
+            case 2:
                 if (Utils.isNetworkAvailable(getActivity()))
                 {
                     quitDialog();

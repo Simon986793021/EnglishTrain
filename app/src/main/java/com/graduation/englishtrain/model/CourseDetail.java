@@ -3,7 +3,7 @@ package com.graduation.englishtrain.model;
 import java.util.List;
 
 /**
- * Created by Simon on 2017/5/10.
+ * Created by jiangbo on 2017/5/10.
  */
 
 public class CourseDetail {
