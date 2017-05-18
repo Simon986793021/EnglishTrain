@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -19,6 +21,10 @@ import com.graduation.englishtrain.Utils;
 import com.graduation.englishtrain.model.CourseDetail;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -37,13 +43,14 @@ public class LessonDetailActivity extends Activity implements View.OnClickListen
     private String courseId;
     private Button button;
     private Intent intent;
-    private String lessonId;
+    private ListView listview;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lesson_detail);
         intent=getIntent();
         back= (TextView) findViewById(R.id.tv_back);
+        listview= (ListView) findViewById(R.id.lv_activity_lesson_detail);
         toolbarcenter= (TextView) findViewById(R.id.tv_activity_toolbar_center);
         toolbarcenter.setText("课程详情");
         contenttextview= (TextView) findViewById(R.id.tv_course_content);
@@ -92,15 +99,30 @@ public class LessonDetailActivity extends Activity implements View.OnClickListen
                             final String content=response.body().string();
                             CourseDetail coursedetail=gson.fromJson(content,CourseDetail.class);
                             final CourseDetail.Course course=coursedetail.course;
+                            final List<CourseDetail.Chapters> chapterlist=coursedetail.chapters;
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    contenttextview.setText(course.content);
+                                    contenttextview.setText("课程：  "+course.content);
                                     String url="http://123.207.19.116/jiangbo/getImg.do?"+course.img2;
                                     Glide.with(LessonDetailActivity.this).load(url)
                                             .error(R.drawable.coursedetail)
                                             .into(imageview);//Glide 加载图片
+                                    listview.setAdapter(new SimpleAdapter(LessonDetailActivity.this,getData(),R.layout.item_activity_lesson_detail,new String []{"title","content"},new int[]{R.id.tv_chapter_title,R.id.tv_chapter_content}));
                                 }
+
+                                private List<? extends Map<String,?>> getData() {
+                                    List list=new ArrayList();
+                                    for (int i=0;i< chapterlist.size();i++)
+                                    {
+                                        Map<String,Object> map=new HashMap<>();
+                                        map.put("title",chapterlist.get(i).chapterTitle);
+                                        map.put("content",chapterlist.get(i).content);
+                                        list.add(map);
+                                    }
+                                    return list;
+                                }
+
                             });
 
                         }

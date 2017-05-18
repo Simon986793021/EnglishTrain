@@ -15,7 +15,7 @@ import com.graduation.englishtrain.model.CourseList;
 import java.util.List;
 
 /**
- * Created by Simon on 2017/5/5.
+ * Created by jiangbo on 2017/5/5.
  */
 
 public class CourseListAdapter extends BaseAdapter {

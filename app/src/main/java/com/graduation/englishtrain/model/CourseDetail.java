@@ -11,7 +11,8 @@ public class CourseDetail {
     public Course course;
     public class Chapters
     {
-
+        public String chapterTitle;
+        public String content;
     }
     public class Course
     {

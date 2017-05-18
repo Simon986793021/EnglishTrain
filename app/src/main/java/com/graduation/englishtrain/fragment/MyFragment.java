@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.graduation.englishtrain.R;
 import com.graduation.englishtrain.Utils;
+import com.graduation.englishtrain.activity.ChangePasswordActivity;
 import com.graduation.englishtrain.activity.LoginActivity;
 import com.graduation.englishtrain.activity.MyLessonActivity;
 import com.graduation.englishtrain.activity.MyinfoActivity;
@@ -68,6 +69,12 @@ public class MyFragment extends BaseFragment implements AdapterView.OnItemClickL
         map.put("rightImage", R.drawable.gogogo);
         list.add(map);
 
+        map=new HashMap<>();
+        map.put("leftImage", R.drawable.changepassword);
+        map.put("centerText", "修改密码");
+        map.put("rightImage", R.drawable.gogogo);
+        list.add(map);
+
         map = new HashMap<>();
         map.put("leftImage", R.drawable.loginout);
         map.put("centerText", "退出登录");
@@ -103,6 +110,10 @@ public class MyFragment extends BaseFragment implements AdapterView.OnItemClickL
                 }
                 break;
             case 2:
+                Intent intent=new Intent(mactivity,ChangePasswordActivity.class);
+                startActivity(intent);
+                break;
+            case 3:
                 if (Utils.isNetworkAvailable(getActivity()))
                 {
                     quitDialog();
